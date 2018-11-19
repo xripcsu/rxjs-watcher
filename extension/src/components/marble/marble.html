@@ -1,0 +1,95 @@
+<template id="marble">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Roboto');
+
+        :host {
+            display: block;
+            padding: 10px 10px;
+            box-sizing: border-box;
+            width: 100%;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        h3 {
+            margin: 0
+        }
+
+        .marble {
+            position: relative;
+            height: 28px;
+            display: flex;
+            align-items: center;
+        }
+
+        .value {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            border-radius: 50%;
+            height: 25px;
+            width: 25px;
+            top: 0;
+            z-index: 2;
+            background-color: #2497c4;
+            animation: show 0.3s ease-in-out;
+            transition: background-color 0.2s ease-in-out;
+        }
+        .value.value--selected,
+        .value:hover {
+            background-color: orange;
+        }
+
+        .complete {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            border-radius: 50%;
+            height: 25px;
+            top: 0;
+            z-index: 2;
+            width: 2px;
+            border-radius: 0;
+            background: black;
+        }
+
+
+        .line {
+            position: relative;
+            left: 0;
+            height: 3px;
+            background: #555;
+            transition: width 0.1s linear;
+            width: 100%
+        }
+
+        .past-line {
+            height: 100%;
+            width: 0;
+            top: 0;
+            left: 0;
+            background-color: #2497c4;
+            transition: width 0.1s linear;
+        }
+
+        @keyframes show {
+            0% {
+                transform: scale(0)
+            }
+
+            100% {
+                transform: scale(1)
+            }
+        }
+    </style>
+    <h3></h3>
+    <div class="marble">
+        <div class="line">
+            <div class="past-line"></div>
+        </div>
+    </div>
+</template>
+<script src="marble.js"></script>

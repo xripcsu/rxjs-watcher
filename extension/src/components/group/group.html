@@ -1,0 +1,26 @@
+<template id="group">
+    <style>
+        :host {
+            display: flex;
+            flex-direction: column;
+        }
+
+        h2 {
+            margin: 0;
+            padding: 15px;
+            background-color: #db1f60;
+            color: #fff;
+        }
+
+        .marbles-wrapper {
+            overflow: hidden;
+            flex-grow: 1;
+            transition: height 0.3s ease-in-out;
+        }
+    </style>
+    <h2></h2>
+    <div class="marbles-wrapper">
+        <slot name="marbles"></slot>
+    </div>
+</template>
+<script src="group.js"></script>

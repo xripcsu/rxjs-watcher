@@ -1,0 +1,26 @@
+{
+    "name": "rx debug",
+    "version": "0.0.1",
+    "manifest_version": 2,
+    "description": "Describe your extension...",
+    "permissions": [],
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "content-script.js"
+            ],
+            "run_at": "document_start"
+        }
+    ],
+    "background": {
+        "scripts": [
+            "background.js"
+        ],
+        "persistent": false
+    },
+    "devtools_page": "devtools.html",
+    "content_security_policy": "script-src 'self' 'sha256-mimaz2CI1GIvGgTUAbBhnLUVCuVsL3squQrs/pvhB+A='; object-src 'self'"
+}
