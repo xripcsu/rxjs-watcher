@@ -4,51 +4,51 @@ const marbleTemplate = document.currentScript.ownerDocument.querySelector('#marb
 
 class Marble extends HTMLElement {
     constructor() {
-        super(); // always call super() first in the constructor.
+        super();
         const shadowRoot = this.attachShadow({ mode: 'open' });
         shadowRoot.appendChild(marbleTemplate.content.cloneNode(true));
-        this.lineWidth = 0;
         this.index = 0;
-        this.interval;
-    }
-
-    disconnectedCallback() {
-        clearInterval(this.interval);
-    }
-
-    startInterval(interval) {
-        this.interval = setInterval(() => {
-            this.lineWidth++;
-            if(this.lineWidth === 100) {
-                clearInterval(this.interval);
-            }
-            this.shadowRoot.querySelector('.past-line').style.width = `${this.lineWidth}%`;
-        }, interval)
+        this.lineWidth;
+        this.startTime;
+        this.duration;
     }
 
     set name(name) {
         this.shadowRoot.querySelector('h3').innerHTML = name;
     }
 
-    set frame(frame) {
+    move(currentTime) {
+        console.log((currentTime - this.startTime)/this.duration)
+        const line = this.shadowRoot.querySelector('.past-line');
+        this.lineWidth = (currentTime - this.startTime)/this.duration;
+        if(this.lineWidth === 1000 || this.lineWidth > 100) {
+            this.handleTimeOut();
+        }
+        line.style.width = `${this.lineWidth}%`;
+    }
+
+    next(value) {
         const el = document.createElement('div')
         el.className = 'value';
         el.innerHTML = this.index;
-        el.style.left = `calc(${this.lineWidth}% - 12.5px)`;
-        el.addEventListener('click', () => this.handleClick(el, frame));
+        el.style.left = `${(new Date().getTime() - this.startTime)/this.duration}%`;
+        el.addEventListener('click', () => this.handleClick(el, value));
         this.shadowRoot.querySelector('.marble').appendChild(el);
         this.index++;
     }
 
-    complete() {    
+    error() {
         const el = document.createElement('div');
-        const line = this.shadowRoot.querySelector('.past-line');
-
-        el.className = 'complete';
-        el.style.left = `${this.lineWidth + 1}%`;
-        line.style.width = `${this.lineWidth + 1}%`;
+        el.className = 'error';
+        el.style.left = `${(new Date().getTime() - this.startTime)/this.duration}%`;
         this.shadowRoot.querySelector('.marble').appendChild(el);
-        clearInterval(this.interval);
+    }
+
+    complete() {
+        const el = document.createElement('div');
+        el.className = 'complete';
+        el.style.left = `${(new Date().getTime() - this.startTime)/this.duration}%`;
+        this.shadowRoot.querySelector('.marble').appendChild(el);
     }
 }
 

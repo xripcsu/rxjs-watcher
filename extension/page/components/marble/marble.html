@@ -34,8 +34,8 @@
             z-index: 2;
             background-color: #2497c4;
             animation: show 0.3s ease-in-out;
-            transition: background-color 0.2s ease-in-out;
         }
+
         .value.value--selected,
         .value:hover {
             background-color: orange;
@@ -54,6 +54,23 @@
             width: 2px;
             border-radius: 0;
             background: black;
+        }
+
+        .error {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            border-radius: 50%;
+            height: 25px;
+            top: 0;
+            z-index: 2;
+            width: 2px;
+            border-radius: 0;
+            background: black;
+            transform: rotateZ(45deg);
+
         }
 
 

@@ -7,8 +7,8 @@ chrome.runtime.onConnect.addListener(function (port) {
       ...(connections[tabId] ?  connections[tabId] : {}),
       content: port
     }
-
     port.onMessage.addListener( (message) => {
+      console.log(message)
       connections[tabId].panel && connections[tabId].panel.postMessage(message)
     })
     

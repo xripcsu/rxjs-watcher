@@ -1,9 +1,9 @@
 {
-    "name": "rx debug",
-    "version": "0.0.1",
+    "name": "RxJs watcher",
+    "version": "0.0.2",
     "manifest_version": 2,
-    "description": "Describe your extension...",
-    "permissions": [],
+    "description": "Devtools panel to visualize rxjs observables",
+    "permissions": ["activeTab"],
     "content_scripts": [
         {
             "matches": [
