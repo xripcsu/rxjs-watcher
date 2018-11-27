@@ -1,31 +1,32 @@
+import { removeChilds } from './utils/utils.js';
+
 const tabId = chrome.devtools.inspectedWindow.tabId;
 const port = chrome.runtime.connect(null, { name: `panel-${tabId}` });
-const tree = jsonTree.create({}, document.querySelector('.json-wrapper'));
 
 port.onMessage.addListener(({ type, body }) => {
-  if (type) {
-    ({
-      'GROUP_INIT': onGroupInit,
-      'MARBLE_INIT': onMarbleInit,
-      'SUBSCRIBE': onSubscribe,
-      'NEXT': onValue,
-      'ERROR': onError,
-      'COMPLETE': onComplete,
-      'RELOAD': onReload
-    })[type](body);
-  }
+  const handler = {
+    'GROUP_INIT': onGroupInit,
+    'MARBLE_INIT': onMarbleInit,
+    'SUBSCRIBE': onSubscribe,
+    'NEXT': onValue,
+    'ERROR': onError,
+    'COMPLETE': onComplete,
+    'RELOAD': onReload
+  }[type];
+
+  handler && handler(body)
+
 });
 
 let activeMarbles = {};
+let interval = null;
 
 function onGroupInit({ groupId, groupName }) {
   const groupElement = document.createElement('rx-group');
-  const message = document.querySelector('.message');
-  message && message.remove();
   groupElement.id = groupId;
   groupElement.name = groupName;
   const groupsWrapper = document.querySelector('.groups');
-  if(groupsWrapper) groupsWrapper.appendChild(groupElement);
+  if (groupsWrapper) groupsWrapper.appendChild(groupElement);
 }
 
 function onMarbleInit({ groupId, marbleId, marbleName, duration }) {
@@ -36,9 +37,12 @@ function onMarbleInit({ groupId, marbleId, marbleName, duration }) {
   marbleElement.slot = 'marbles';
   marbleElement.handleTimeOut = () => delete activeMarbles[marbleId];
   marbleElement.handleClick = valueClick;
-
-  const groupEl = document.getElementById(groupId);
-  if(groupEl) groupEl.appendChild(marbleElement);
+  if (groupId) {
+    const groupEl = document.getElementById(groupId);
+    if (groupEl) groupEl.appendChild(marbleElement);
+  } else {
+    document.querySelector('.marbles').appendChild(marbleElement)
+  }
 }
 
 function onSubscribe({ marbleId }) {
@@ -46,17 +50,19 @@ function onSubscribe({ marbleId }) {
   if (marble) {
     marble.startTime = new Date().getTime();
     activeMarbles[marbleId] = marble;
+    if (!interval) {
+      interval = startAnimation();
+    }
   }
 }
 
 
 function onReload() {
   activeMarbles = {}
+  const groups = document.querySelector('.groups');
+  const marbles = document.querySelector('.marbles');
+  removeChilds(groups, marbles)
 
-  const group = document.getElementsByClassName('groups')[0];
-  while (group.firstChild) {
-    group.firstChild.remove();
-  }
 }
 
 function onValue({ marbleId, value }) {
@@ -80,16 +86,22 @@ function onComplete({ marbleId }) {
 }
 
 function valueClick(clickedEl, value) {
-  tree.loadData({ value: JSON.parse(value) });
+  document.querySelector('json-tree').json = value;
   document.querySelectorAll('rx-marble').forEach(marbleEl =>
-    marbleEl.shadowRoot.querySelectorAll('.value').forEach(valueEl => valueEl.className = 'value')
+    marbleEl.shadowRoot.querySelectorAll('.value').forEach(valueEl => valueEl.className = 'point value')
   );
-  clickedEl.className = 'value value--selected';
+  clickedEl.className = 'point value value--selected';
 };
 
-function step() {
-  Object.values(activeMarbles).forEach(node => node.move(new Date().getTime()));
-  requestAnimationFrame(step)
+
+function startAnimation() {
+  return setInterval(() => {
+    const marbles = Object.values(activeMarbles);
+    marbles.forEach(node => node.move(new Date().getTime()));
+    if(!marbles.length) {
+      clearInterval(interval);
+      interval = null;
+    } 
+  },100)
 }
 
-requestAnimationFrame(step)

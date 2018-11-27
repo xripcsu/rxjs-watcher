@@ -1,6 +1,6 @@
 {
   "name": "rxjs-watcher",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Operator to comunicate with devtools extension to visualize rxjs observables",
   "main": "dist/index.js",
   "scripts": {

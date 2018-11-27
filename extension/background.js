@@ -8,7 +8,6 @@ chrome.runtime.onConnect.addListener(function (port) {
       content: port
     }
     port.onMessage.addListener( (message) => {
-      console.log(message)
       connections[tabId].panel && connections[tabId].panel.postMessage(message)
     })
     
@@ -18,8 +17,9 @@ chrome.runtime.onConnect.addListener(function (port) {
       ...(connections[tabId] ?  connections[tabId] : {}),
       panel: port
     }
-    port.onMessage.addListener(function (message) {
+    port.onDisconnect.addListener(function (port) {
+      delete connections[tabId];
     })
-    
+
   }
 });

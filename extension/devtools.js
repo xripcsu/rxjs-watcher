@@ -1,5 +1,5 @@
 chrome.devtools.panels.create(
-  'Rx debug',
+  'RxJs watcher',
   null,
   'page/panel.html',
   null

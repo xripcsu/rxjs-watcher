@@ -1,6 +1,15 @@
+let marbleTemplate = document.createElement('template');
+marbleTemplate.innerHTML = //html
+`
+    <link rel="stylesheet" href="./components/marble/marble.css">
+    <h3></h3>
+    <div class="marble">
+        <div class="line">
+            <div class="past-line"></div>
+        </div>
+    </div>
+`
 
-
-const marbleTemplate = document.currentScript.ownerDocument.querySelector('#marble');
 
 class Marble extends HTMLElement {
     constructor() {
@@ -8,7 +17,6 @@ class Marble extends HTMLElement {
         const shadowRoot = this.attachShadow({ mode: 'open' });
         shadowRoot.appendChild(marbleTemplate.content.cloneNode(true));
         this.index = 0;
-        this.lineWidth;
         this.startTime;
         this.duration;
     }
@@ -18,20 +26,20 @@ class Marble extends HTMLElement {
     }
 
     move(currentTime) {
-        console.log((currentTime - this.startTime)/this.duration)
         const line = this.shadowRoot.querySelector('.past-line');
-        this.lineWidth = (currentTime - this.startTime)/this.duration;
-        if(this.lineWidth === 1000 || this.lineWidth > 100) {
+        const lineWidth = (currentTime - this.startTime) / this.duration;
+        if (lineWidth === 1000 || lineWidth > 100) {
             this.handleTimeOut();
         }
-        line.style.width = `${this.lineWidth}%`;
+        line.style.width = `${lineWidth}%`;
     }
 
     next(value) {
         const el = document.createElement('div')
-        el.className = 'value';
+        el.className = 'point value';
         el.innerHTML = this.index;
-        el.style.left = `${(new Date().getTime() - this.startTime)/this.duration}%`;
+        const left = (new Date().getTime() - this.startTime) / this.duration;
+        el.style.left = `calc(${left}% - 12.5px)`;
         el.addEventListener('click', () => this.handleClick(el, value));
         this.shadowRoot.querySelector('.marble').appendChild(el);
         this.index++;
@@ -39,15 +47,15 @@ class Marble extends HTMLElement {
 
     error() {
         const el = document.createElement('div');
-        el.className = 'error';
-        el.style.left = `${(new Date().getTime() - this.startTime)/this.duration}%`;
+        el.className = 'point error';
+        el.style.left = `${(new Date().getTime() - this.startTime) / this.duration}%`;
         this.shadowRoot.querySelector('.marble').appendChild(el);
     }
 
     complete() {
         const el = document.createElement('div');
-        el.className = 'complete';
-        el.style.left = `${(new Date().getTime() - this.startTime)/this.duration}%`;
+        el.className = 'point complete';
+        el.style.left = `${(new Date().getTime() - this.startTime) / this.duration}%`;
         this.shadowRoot.querySelector('.marble').appendChild(el);
     }
 }

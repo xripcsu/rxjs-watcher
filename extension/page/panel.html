@@ -5,21 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="import" href="components/marble/marble.html">
-    <link rel="import" href="components/group/group.html">
     <link rel="stylesheet" href="style.css">
-    <link href="libs/jsonTree/jsonTree.css" rel="stylesheet" />
-    <title>Document</title>
+    <script src="components/marble/marble.js"></script>
+    <script src="components/group/group.js"></script>
+    <script src="components/json-tree/json-tree.js"></script>
     <script src="libs/jsonTree/jsonTree.js"></script>
-    <script defer src="script.js"></script>
+    <script type="module" src="script.js"></script>
+    <title>Document</title>
 </head>
 
 <body>
     <h1>Rxjs watcher</h1>
-    <p class="message">Please reload page</p>
     <div class="d-flex flex-g-1">
-        <div class="groups"></div>
-        <div class="json-wrapper"></div>
+        <div class="flex-g-1 overflow-auto">
+            <div class="marbles"></div>
+            <div class="groups"></div>
+        </div>
+        <json-tree></json-tree>
     </div>
 </body>
 
