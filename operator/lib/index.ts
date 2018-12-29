@@ -14,7 +14,7 @@ const getSender = ({groupId, marbleId}: any) => (type: string, body?: any) => {
 };
 
 /**
- * Create group in devto title = 'manager';ols panel and return pipeable operator to visualize rxjs marbles in specific group
+ * Create group in devtools panel and return pipeable operator to visualize rxjs marbles in specific group
  * @param groupName title for group
  * @param duration duration in seconds
  * @example
