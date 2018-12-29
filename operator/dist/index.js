@@ -52,7 +52,7 @@ export function watch(marbleName, duration = 10) {
 const operatorFactory = (sender) => (source) => defer(() => {
     sender('SUBSCRIBE');
     return source.pipe(catchError(error => {
-        sender('ERROR', { error });
+        sender('ERROR', { error: JSON.stringify(error) });
         return throwError(error);
     }), tap((value) => sender('NEXT', { value: JSON.stringify(value) })), finalize(() => sender('COMPLETE')));
 });

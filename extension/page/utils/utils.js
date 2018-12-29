@@ -5,3 +5,9 @@ export function removeChilds(...elements) {
         }
     });
 }
+
+export function html([template]) {
+    const templateElement = document.createElement('template');
+    templateElement.innerHTML = template;
+    return templateElement;
+}

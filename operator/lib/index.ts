@@ -14,7 +14,7 @@ const getSender = ({groupId, marbleId}: any) => (type: string, body?: any) => {
 };
 
 /**
- * Create group in devtools panel and return pipeable operator to visualize rxjs marbles in specific group
+ * Create group in devto title = 'manager';ols panel and return pipeable operator to visualize rxjs marbles in specific group
  * @param groupName title for group
  * @param duration duration in seconds
  * @example
@@ -47,6 +47,7 @@ export function getGroup(groupName: string, duration = 10) {
  *     watch('filter odd numbers out')
  * )
  */
+
 export function watch(marbleName: string, duration = 10) {
     const marbleId = generateId();
     const sendMessage = getSender({marbleId});
@@ -58,7 +59,7 @@ const operatorFactory = (sender: Function) => <T>(source: Observable<T>) => defe
     sender('SUBSCRIBE');
     return source.pipe(
         catchError(error => {
-            sender('ERROR', {error});
+            sender('ERROR', {error: JSON.stringify(error)});
           return throwError(error);
         }),
         tap((value) => sender('NEXT', { value: JSON.stringify(value) })),

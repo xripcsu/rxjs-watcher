@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="style.css">
-    <script src="components/marble/marble.js"></script>
-    <script src="components/group/group.js"></script>
-    <script src="components/json-tree/json-tree.js"></script>
+    <script type="module" src="components/index.js"></script>
     <script src="libs/jsonTree/jsonTree.js"></script>
+    <script src="libs/hyperList/index.js"></script>
     <script type="module" src="script.js"></script>
-    <title>Document</title>
 </head>
 
 <body>
-    <h1>Rxjs watcher</h1>
+    <header>
+        <img src="assets/icons/rxjs-logo.png">
+        <h1>RxJS watcher</h1>
+        <a href="https://github.com/xripcsu/rxjs-watcher" target="_blank" title="github">
+            <img src="assets/icons/github-icon.svg">
+        </a>
+    </header>
     <div class="d-flex flex-g-1">
         <div class="flex-g-1 overflow-auto">
             <div class="marbles"></div>
@@ -24,5 +27,4 @@
         <json-tree></json-tree>
     </div>
 </body>
-
 </html>

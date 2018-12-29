@@ -20,6 +20,7 @@ port.onMessage.addListener(({ type, body }) => {
 
 let activeMarbles = {};
 let interval = null;
+let lastClickedEl = null;
 
 function onGroupInit({ groupId, groupName }) {
   const groupElement = document.createElement('rx-group');
@@ -62,12 +63,13 @@ function onReload() {
   const groups = document.querySelector('.groups');
   const marbles = document.querySelector('.marbles');
   removeChilds(groups, marbles)
-
 }
 
 function onValue({ marbleId, value }) {
   const marble = activeMarbles[marbleId];
-  if (marble) marble.next(value);
+  if (marble) {
+    marble.next(value);
+  }
 }
 
 function onError({ marbleId, error }) {
@@ -87,10 +89,9 @@ function onComplete({ marbleId }) {
 
 function valueClick(clickedEl, value) {
   document.querySelector('json-tree').json = value;
-  document.querySelectorAll('rx-marble').forEach(marbleEl =>
-    marbleEl.shadowRoot.querySelectorAll('.value').forEach(valueEl => valueEl.className = 'point value')
-  );
-  clickedEl.className = 'point value value--selected';
+  [lastClickedEl, clickedEl]
+    .forEach(el => el && el.classList.toggle('selected'));
+  lastClickedEl = clickedEl;
 };
 
 
@@ -98,10 +99,10 @@ function startAnimation() {
   return setInterval(() => {
     const marbles = Object.values(activeMarbles);
     marbles.forEach(node => node.move(new Date().getTime()));
-    if(!marbles.length) {
+    if (!marbles.length) {
       clearInterval(interval);
       interval = null;
-    } 
-  },100)
+    }
+  }, 100)
 }
 

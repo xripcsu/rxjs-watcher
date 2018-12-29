@@ -2,6 +2,7 @@
         
 html, body {
     height: 100%;
+    user-select: none;
 }
 
 body {
@@ -11,11 +12,28 @@ body {
     flex-direction: column;
 }
 
+header {
+    background: #4e2888;
+    color: #fff;
+    padding: 15px;
+    display: flex;
+    box-shadow: 
+        0 3px 5px -1px rgba(0,0,0,.2), 
+        0 6px 10px 0 rgba(0,0,0,.14), 
+        0 1px 18px 0 rgba(0,0,0,.12);
+}
+
 h1 {
     margin: 0;
-    padding: 15px;
-    background: #7b3399;
-    color: #fff;
+    padding-left: 10px;
+    flex: 1;
+}
+img {
+    width: 32px;
+    height: 32px;
+}
+a:hover {
+    opacity: 0.9;
 }
 ul {
     list-style: none;

@@ -1,6 +1,6 @@
-let marbleTemplate = document.createElement('template');
-marbleTemplate.innerHTML = //html
-`
+import { html } from './../../utils/utils.js';
+
+const templateElement = html`
     <link rel="stylesheet" href="./components/marble/marble.css">
     <h3></h3>
     <div class="marble">
@@ -10,12 +10,11 @@ marbleTemplate.innerHTML = //html
     </div>
 `
 
-
-class Marble extends HTMLElement {
+export class Marble extends HTMLElement {
     constructor() {
         super();
         const shadowRoot = this.attachShadow({ mode: 'open' });
-        shadowRoot.appendChild(marbleTemplate.content.cloneNode(true));
+        shadowRoot.appendChild(templateElement.content.cloneNode(true));
         this.index = 0;
         this.startTime;
         this.duration;
@@ -25,39 +24,44 @@ class Marble extends HTMLElement {
         this.shadowRoot.querySelector('h3').innerHTML = name;
     }
 
-    move(currentTime) {
+    set lineWidth(width) {
         const line = this.shadowRoot.querySelector('.past-line');
+        line.style.width = `${width}%`;
+    }
+
+    move(currentTime) {
         const lineWidth = (currentTime - this.startTime) / this.duration;
         if (lineWidth === 1000 || lineWidth > 100) {
             this.handleTimeOut();
         }
-        line.style.width = `${lineWidth}%`;
+        this.lineWidth = lineWidth;
+    }
+
+    appendPoint(type, content = '', offset = 0 ) {
+        const left = (new Date().getTime() - this.startTime) / this.duration;
+        const el = document.createElement('div')
+        el.style.left = `calc(${left}% - ${offset}px)`;
+        el.className = `point ${type}`;
+        el.innerHTML = content;
+        this.lineWidth = left;
+        this.shadowRoot.querySelector('.marble').appendChild(el);
+
+        return el;
     }
 
     next(value) {
-        const el = document.createElement('div')
-        el.className = 'point value';
-        el.innerHTML = this.index;
-        const left = (new Date().getTime() - this.startTime) / this.duration;
-        el.style.left = `calc(${left}% - 12.5px)`;
-        el.addEventListener('click', () => this.handleClick(el, value));
-        this.shadowRoot.querySelector('.marble').appendChild(el);
+        const el = this.appendPoint('value', this.index, 12.5);
+        el.addEventListener('click', () => this.handleClick(el, {value: JSON.parse(value) }));
         this.index++;
     }
 
-    error() {
-        const el = document.createElement('div');
-        el.className = 'point error';
-        el.style.left = `${(new Date().getTime() - this.startTime) / this.duration}%`;
-        this.shadowRoot.querySelector('.marble').appendChild(el);
+    error(error) {
+        const el = this.appendPoint('error', '&times', 12.5);
+        el.addEventListener('click', () => this.handleClick(el, {error: JSON.parse(error)}));
     }
 
     complete() {
-        const el = document.createElement('div');
-        el.className = 'point complete';
-        el.style.left = `${(new Date().getTime() - this.startTime) / this.duration}%`;
-        this.shadowRoot.querySelector('.marble').appendChild(el);
+        this.appendPoint('complete');
     }
 }
 
-customElements.define('rx-marble', Marble);
