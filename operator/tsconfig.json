@@ -1,10 +1,14 @@
 {
     "compilerOptions": {
-        "target": "es2015",
+        "target": "es6",
         "module": "es2015",
         "declaration": true,
         "outDir": "./dist",
         "strict": true,
-        "moduleResolution": "node"
+        "moduleResolution": "node",
+        "lib": [
+            "dom",
+            "es2018"
+        ]
     }
 }

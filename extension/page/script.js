@@ -57,7 +57,6 @@ function onSubscribe({ marbleId }) {
   }
 }
 
-
 function onReload() {
   activeMarbles = {}
   const groups = document.querySelector('.groups');
@@ -94,7 +93,6 @@ function valueClick(clickedEl, value) {
   lastClickedEl = clickedEl;
 };
 
-
 function startAnimation() {
   return setInterval(() => {
     const marbles = Object.values(activeMarbles);
@@ -105,4 +103,3 @@ function startAnimation() {
     }
   }, 100)
 }
-

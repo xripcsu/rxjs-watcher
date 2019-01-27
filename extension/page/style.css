@@ -10,6 +10,7 @@ body {
     font-family: 'Roboto', sans-serif;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
 
 header {
@@ -17,6 +18,8 @@ header {
     color: #fff;
     padding: 15px;
     display: flex;
+    z-index: 10;
+    flex-shrink: 0;
     box-shadow: 
         0 3px 5px -1px rgba(0,0,0,.2), 
         0 6px 10px 0 rgba(0,0,0,.14), 
@@ -51,6 +54,17 @@ ul {
 
 .overflow-auto {
     overflow: auto;
+}
+
+.left {
+    overflow: auto;
+    flex-grow: 1;
+    padding-left: 15px;
+    padding-right: 5px;
+}
+
+.marbles > * {
+    box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
 }
 
 .json-wrapper {

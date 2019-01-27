@@ -2,7 +2,10 @@ import { html } from './../../utils/utils.js';
 
 const templateElement = html`
     <link rel="stylesheet" href="./components/marble/marble.css">
-    <h3></h3>
+    <div class="d-flex">
+        <h3></h3>
+        <span class="message">Waiting for subscribe</span>
+    </div>
     <div class="marble">
         <div class="line">
             <div class="past-line"></div>
@@ -18,10 +21,16 @@ export class Marble extends HTMLElement {
         this.index = 0;
         this.startTime;
         this.duration;
+        this.started = false;
+        this.finishedWithError = false;
     }
 
     set name(name) {
         this.shadowRoot.querySelector('h3').innerHTML = name;
+    }
+
+    set message(message) {
+        this.shadowRoot.querySelector('.message').innerHTML = message;
     }
 
     set lineWidth(width) {
@@ -30,11 +39,16 @@ export class Marble extends HTMLElement {
     }
 
     move(currentTime) {
+        if(!this.started) {
+            this.message = '';
+        }
         const lineWidth = (currentTime - this.startTime) / this.duration;
         if (lineWidth === 1000 || lineWidth > 100) {
             this.handleTimeOut();
+            this.message = 'Observable may still running, increase duration if you want to see what is going on'
         }
         this.lineWidth = lineWidth;
+        this.started = true;
     }
 
     appendPoint(type, content = '', offset = 0 ) {
@@ -51,16 +65,18 @@ export class Marble extends HTMLElement {
 
     next(value) {
         const el = this.appendPoint('value', this.index, 12.5);
-        el.addEventListener('click', () => this.handleClick(el, {value: JSON.parse(value) }));
+        el.addEventListener('click', () => this.handleClick(el, {value}));
         this.index++;
     }
 
     error(error) {
         const el = this.appendPoint('error', '&times', 12.5);
-        el.addEventListener('click', () => this.handleClick(el, {error: JSON.parse(error)}));
+        el.addEventListener('click', () => this.handleClick(el, {error}));
+        this.finishedWithError = true;
     }
 
     complete() {
+        this.message = this.finishedWithError ? 'Observable finished with error' : 'Observable finished'
         this.appendPoint('complete');
     }
 }
