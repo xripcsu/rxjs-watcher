@@ -8,11 +8,14 @@ export function serialize(obj, depth = 0, references = []) {
     else if (typeof obj === "function") {
         return "function";
     }
+    else if (typeof obj === "undefined") {
+        return "undefined";
+    }
     else if (typeof obj === "object") {
         if (!references.includes(obj)) {
             references.push(obj);
             const isArray = Array.isArray(obj);
-            let out;
+            let out = null;
             for (const key in obj) {
                 const value = obj[key];
                 out = isArray

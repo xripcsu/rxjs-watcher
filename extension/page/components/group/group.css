@@ -30,6 +30,7 @@ header:hover {
 h2 {
     margin: 0;
     flex: 1;
+    font-size: 18px;
 }
 
 .chevron {

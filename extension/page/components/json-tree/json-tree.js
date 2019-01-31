@@ -76,9 +76,8 @@ export class JsonTree extends HTMLElement {
 
   loadData(searched) {
     const [key, value] = Object.entries(this.currentValue)[0];
-    this.tree.loadData({
-      [key]: (searched && typeof value === 'object') ? filterJsonTree(value, searched)[0] : value
-    });
+    const out = {[key]: (searched && typeof value === 'object') ? filterJsonTree(value, searched)[0] : value};
+    this.tree.loadData(out);
     this.shadowRoot.querySelectorAll(".jsontree_label").forEach((el, index) => {
       if (index && searched && ignoreCaseIncludes(el.textContent, searched)) {
         el.classList.add("highlight");

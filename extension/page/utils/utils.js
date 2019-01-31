@@ -22,7 +22,7 @@ export function filterJsonTree(obj, text) {
   return [
     Object.entries(obj).reduce(
       (prev, [key, value]) => {
-        if (typeof value === "object") {
+        if (typeof value === "object" && value !== null) {
           const [filteredObject, ancestorFound] = filterJsonTree(value, text);
           const keepProp = ancestorFound || ignoreCaseIncludes(key, text);
           if (!keyFound) {

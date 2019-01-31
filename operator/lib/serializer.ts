@@ -5,11 +5,13 @@ export function serialize(obj: any, depth: number = 0, references: any[] = []): 
     return "Node (to see this value use selector)";
   } else if (typeof obj === "function") {
     return "function";
+  } else if (typeof obj === "undefined") {
+    return "undefined";
   } else if (typeof obj === "object") {
     if (!references.includes(obj)) {
       references.push(obj);
       const isArray = Array.isArray(obj);
-      let out: any;
+      let out: any = null;
       for (const key in obj) {
         const value = obj[key];
         out = isArray

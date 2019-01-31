@@ -30,6 +30,7 @@ h1 {
     margin: 0;
     padding-left: 10px;
     flex: 1;
+    font-size: 24px;
 }
 img {
     width: 32px;
@@ -44,12 +45,10 @@ ul {
     margin: 0;
 }
 
-.d-flex {
+.main {
     display: flex;
-}
-
-.flex-g-1 {
     flex-grow: 1;
+    height: 0;
 }
 
 .overflow-auto {
@@ -58,9 +57,9 @@ ul {
 
 .left {
     overflow: auto;
-    flex-grow: 1;
     padding-left: 15px;
     padding-right: 5px;
+    flex: 1 0 auto;
 }
 
 .marbles > * {

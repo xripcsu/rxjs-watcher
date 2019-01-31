@@ -41,7 +41,7 @@ input {
     border-radius: 3px;
     padding: 10px;
     width: 0;
-    flex: 1;
+    flex: 1 0 auto;
 }
 
 .controls {
@@ -55,7 +55,8 @@ input {
 .json {
     overflow: auto;
     padding: 10px 0;
-    flex: 1;
+    flex: 1 0 auto;
+    height: 0;
 }
 
 button {
@@ -81,6 +82,7 @@ button:active {
 
 .jsontree_tree {
     width: max-content;
+    width: -moz-max-content;
     margin-right: 30px;
     font-size: 12px;
 }
