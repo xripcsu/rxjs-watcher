@@ -1,11 +1,6 @@
 # RxJS watcher
 
-Simple chrome devtools extension to visualize Rxjs observables.
-
-**! Last version of operator on npm is 1.1.0 but compatible version of extension is pending for review.**
-
-For now please install
-`npm install rxjs-watcher@1.0.6`
+Simple devtools extension to visualize Rxjs observables.
 
 ## Installation
 
@@ -15,7 +10,7 @@ For now please install
 
 ### Install extension
 
-Install [rxjs-watcher extension](https://chrome.google.com/webstore/detail/rxjs-watcher/dfpjfjpfpjjgoeackldilanadoeaciam)
+Install extension for [chrome](https://chrome.google.com/webstore/detail/rxjs-watcher/dfpjfjpfpjjgoeackldilanadoeaciam) or [firefox](https://addons.mozilla.org/en-US/firefox/addon/rxjs-watcher/)
 
 ## How to use
 
