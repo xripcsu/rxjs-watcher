@@ -7,7 +7,7 @@ export function serialize(obj: any, depth: number = 0, references: any[] = []): 
     return "function";
   } else if (typeof obj === "undefined") {
     return "undefined";
-  } else if (typeof obj === "object") {
+  } else if (typeof obj === "object" && obj) {
     if (!references.includes(obj)) {
       references.push(obj);
       const isArray = Array.isArray(obj);

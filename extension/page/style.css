@@ -59,7 +59,7 @@ ul {
     overflow: auto;
     padding-left: 15px;
     padding-right: 5px;
-    flex: 1 0 auto;
+    flex: 1 1 auto;
 }
 
 .marbles > * {

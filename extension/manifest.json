@@ -1,6 +1,6 @@
 {
     "name": "RxJs watcher",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "manifest_version": 2,
     "description": "Devtools panel to visualize rxjs observables",
     "permissions": ["activeTab"],
