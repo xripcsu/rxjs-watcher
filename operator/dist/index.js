@@ -1,6 +1,10 @@
 import { defer, throwError } from "rxjs";
 import { finalize, tap, catchError } from "rxjs/operators";
 import { serialize } from "./serializer";
+const RXJS_DISABLED = "RXJS_WATCHER_DISABLED";
+export const disableRxjsWatcher = () => {
+    window[RXJS_DISABLED] = true;
+};
 const generateId = () => Math.random()
     .toString(36)
     .substr(2, 5);
@@ -39,6 +43,9 @@ export function getGroup(groupName, duration = 10) {
     const groupId = generateId();
     getSender({ groupId })("GROUP_INIT", { groupName });
     return function (marbleName, selector) {
+        if (!!window[RXJS_DISABLED]) {
+            return ob => ob;
+        }
         const marbleId = generateId();
         const sendMessage = getSender({ groupId, marbleId });
         sendMessage("MARBLE_INIT", { marbleName, duration });
@@ -58,6 +65,9 @@ export function getGroup(groupName, duration = 10) {
  * )
  */
 export function watch(marbleName, duration, selector) {
+    if (!!window[RXJS_DISABLED]) {
+        return ob => ob;
+    }
     const marbleId = generateId();
     const sendMessage = getSender({ marbleId });
     sendMessage("MARBLE_INIT", { marbleName, duration: duration });

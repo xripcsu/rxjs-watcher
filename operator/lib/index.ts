@@ -2,12 +2,21 @@ import { defer, throwError, OperatorFunction } from "rxjs";
 import { finalize, tap, catchError } from "rxjs/operators";
 import { serialize } from "./serializer";
 
+const RXJS_DISABLED = "RXJS_WATCHER_DISABLED";
+
+export const disableRxjsWatcher = () => {
+  (window as any)[RXJS_DISABLED] = true;
+};
+
 const generateId = () =>
   Math.random()
     .toString(36)
     .substr(2, 5);
 
-const getSender = ({ groupId, marbleId }: any) => (type: string, body?: any) => {
+const getSender = ({ groupId, marbleId }: any) => (
+  type: string,
+  body?: any
+) => {
   postMessage(
     {
       message: {
@@ -23,7 +32,6 @@ const getSender = ({ groupId, marbleId }: any) => (type: string, body?: any) => 
     "*"
   );
 };
-
 
 const operatorFactory = <T>(
   sender: Function,
@@ -60,7 +68,13 @@ const operatorFactory = <T>(
 export function getGroup(groupName: string, duration = 10) {
   const groupId = generateId();
   getSender({ groupId })("GROUP_INIT", { groupName });
-  return function<T>(marbleName: string, selector?: (value: T) => any): OperatorFunction<T, T> {
+  return function<T>(
+    marbleName: string,
+    selector?: (value: T) => any
+  ): OperatorFunction<T, T> {
+    if (!!(window as any)[RXJS_DISABLED]) {
+      return ob => ob;
+    }
     const marbleId = generateId();
     const sendMessage = getSender({ groupId, marbleId });
     sendMessage("MARBLE_INIT", { marbleName, duration });
@@ -86,6 +100,9 @@ export function watch<T>(
   duration?: number,
   selector?: (value: T) => any
 ): OperatorFunction<T, T> {
+  if (!!(window as any)[RXJS_DISABLED]) {
+    return ob => ob;
+  }
   const marbleId = generateId();
   const sendMessage = getSender({ marbleId });
   sendMessage("MARBLE_INIT", { marbleName, duration: duration });

@@ -1,4 +1,5 @@
 import { OperatorFunction } from "rxjs";
+export declare const disableRxjsWatcher: () => void;
 /**
  * Create group in devtools panel and return pipeable operator to visualize rxjs marbles in specific group
  * @param groupName title for group
