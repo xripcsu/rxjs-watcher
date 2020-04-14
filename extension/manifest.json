@@ -1,28 +1,20 @@
 {
-    "name": "RxJs watcher",
-    "version": "1.1.3",
-    "manifest_version": 2,
-    "description": "Devtools panel to visualize rxjs observables",
-    "permissions": [
-        "activeTab"
-    ],
-    "content_scripts": [
-        {
-            "matches": [
-                "<all_urls>"
-            ],
-            "js": [
-                "content-script.js"
-            ],
-            "run_at": "document_start"
-        }
-    ],
-    "background": {
-        "scripts": [
-            "background.js"
-        ],
-        "persistent": false
-    },
-    "devtools_page": "devtools.html",
-    "content_security_policy": "script-src 'self' 'sha256-mimaz2CI1GIvGgTUAbBhnLUVCuVsL3squQrs/pvhB+A='; object-src 'self'"
+  "name": "RxJs watcher",
+  "version": "1.1.4",
+  "manifest_version": 2,
+  "description": "Devtools panel to visualize rxjs observables",
+  "permissions": ["activeTab"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content-script.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "devtools_page": "devtools.html",
+  "content_security_policy": "script-src 'self' 'sha256-mimaz2CI1GIvGgTUAbBhnLUVCuVsL3squQrs/pvhB+A='; object-src 'self'"
 }

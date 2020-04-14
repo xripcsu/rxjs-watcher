@@ -7,6 +7,10 @@
     max-height: 0;
 }
 
+:host(.theme-dark) .marbles-wrapper {
+    background: #424242;
+}
+
 :host(.hidden) .chevron {
     transform: rotate(0deg);
 }
@@ -18,15 +22,13 @@ header {
     color: #fff;
     cursor: pointer;
     transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 
-        0 2px 1px -1px rgba(0,0,0,.2), 
-        0 1px 1px 0 rgba(0,0,0,.14), 
-        0 1px 3px 0 rgba(0,0,0,.12);
+    box-shadow: 0 2px 1px -1px rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 1px 3px 0 rgba(0, 0, 0, .12);
 }
 
 header:hover {
     background-color: rgb(232, 26, 98);
 }
+
 h2 {
     margin: 0;
     flex: 1;
@@ -53,10 +55,7 @@ h2 {
     overflow-y: scroll;
     flex-grow: 1;
     transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 
-        0 2px 1px -1px rgba(0,0,0,.2), 
-        0 1px 1px 0 rgba(0,0,0,.14), 
-        0 1px 3px 0 rgba(0,0,0,.12);
+    box-shadow: 0 2px 1px -1px rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 1px 3px 0 rgba(0, 0, 0, .12);
 }
 
 ::-webkit-scrollbar {
@@ -65,7 +64,7 @@ h2 {
 }
 
 ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
 
 ::-webkit-scrollbar-thumb {

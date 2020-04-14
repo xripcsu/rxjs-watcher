@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
-        
 html, body {
     height: 100%;
     user-select: none;
@@ -20,10 +19,7 @@ header {
     display: flex;
     z-index: 10;
     flex-shrink: 0;
-    box-shadow: 
-        0 3px 5px -1px rgba(0,0,0,.2), 
-        0 6px 10px 0 rgba(0,0,0,.14), 
-        0 1px 18px 0 rgba(0,0,0,.12);
+    box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12);
 }
 
 h1 {
@@ -32,13 +28,16 @@ h1 {
     flex: 1;
     font-size: 24px;
 }
+
 img {
     width: 32px;
     height: 32px;
 }
+
 a:hover {
     opacity: 0.9;
 }
+
 ul {
     list-style: none;
     padding: 0;
@@ -62,8 +61,8 @@ ul {
     flex: 1 1 auto;
 }
 
-.marbles > * {
-    box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+.marbles>* {
+    box-shadow: 0 2px 1px -1px rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 1px 3px 0 rgba(0, 0, 0, .12);
     overflow-y: auto;
 }
 
@@ -76,12 +75,20 @@ ul {
     width: 6px;
     height: 6px;
 }
- 
+
 ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
- 
+
 ::-webkit-scrollbar-thumb {
     background-color: #6e6e6e;
     outline: #333 solid 1px;
+}
+
+.theme-dark {
+    color: #fff
+}
+
+.theme-dark .marbles>* {
+    background: #424242;
 }

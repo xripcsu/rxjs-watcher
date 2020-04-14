@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
-
 :host {
     display: block;
     padding: 10px 15px;
@@ -48,11 +47,10 @@ span {
     transition: background-color 0.3s ease-in-out;
     width: 25px;
     animation: show 0.3s ease-in-out;
-    box-shadow: 0 0 3px rgba(0,0,0,0.5);
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
 }
 
-.value.selected,
-.value:hover {
+.value.selected, .value:hover {
     background-color: #db1f60;
 }
 
@@ -73,16 +71,14 @@ span {
 .error {
     font-size: 48px;
     font-family: auto;
-    color: #000; 
+    color: #000;
     transition: color 0.3s ease-in-out;
     height: 26px;
 }
 
-.error:hover,
-.error.selected {
+.error:hover, .error.selected {
     color: #db1f60
 }
-
 
 .line {
     position: relative;
@@ -106,7 +102,6 @@ span {
     0% {
         transform: scale(0)
     }
-
     100% {
         transform: scale(1)
     }
